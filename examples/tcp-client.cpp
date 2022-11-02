@@ -3,8 +3,7 @@
 
 using namespace std;
 
-int main()
-{
+int main() {
     // Initialize socket.
     TCPSocket tcpSocket([](int errorCode, std::string errorMessage){
         cout << "Socket creation error:" << errorCode << " : " << errorMessage << endl;
@@ -14,6 +13,7 @@ int main()
     tcpSocket.onMessageReceived = [](string message) {
         cout << "Message from the Server: " << message << endl;
     };
+
     // If you want to use raw bytes instead of std::string:
     /*
     tcpSocket.onRawMessageReceived = [](const char* message, int length) {
@@ -27,7 +27,7 @@ int main()
     };
 
     // Connect to the host.
-    tcpSocket.Connect("localhost", 8888, [&] {
+    tcpSocket.Connect("plaza.local", 28080, [&] {
         cout << "Connected to the server successfully." << endl;
 
         // Send String:
@@ -42,8 +42,7 @@ int main()
     // Because socket listenings are non-blocking.
     string input;
     getline(cin, input);
-    while (input != "exit")
-    {
+    while (input != "exit") {
         tcpSocket.Send(input);
         getline(cin, input);
     }
