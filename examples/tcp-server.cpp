@@ -3,8 +3,9 @@
 
 using namespace std;
 
-int main()
-{
+int main() {
+    int port = 28800;
+
     // Initialize server socket..
     TCPServer tcpServer;
 
@@ -15,7 +16,7 @@ int main()
 
         newClient->onMessageReceived = [newClient](string message) {
             cout << newClient->remoteAddress() << ":" << newClient->remotePort() << " => " << message << endl;
-            newClient->Send("OK!");
+            newClient->Send("VjQY7dVbJjmEabjb.6ac96082cab29cc828f509157dfd1932");
         };
         
         // If you want to use raw bytes
@@ -32,8 +33,10 @@ int main()
         };
     };
 
-    // Bind the server to a port.
-    tcpServer.Bind(8888, [](int errorCode, string errorMessage) {
+    // Bind the server to the port.
+    cout << "bind to port: " << port << endl;
+
+    tcpServer.Bind(port, [](int errorCode, string errorMessage) {
         // BINDING FAILED:
         cout << errorCode << " : " << errorMessage << endl;
     });

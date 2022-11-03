@@ -4,6 +4,10 @@
 using namespace std;
 
 int main() {
+
+    string host = "plaza.local";
+    int port = 28800;
+
     // Initialize socket.
     TCPSocket tcpSocket([](int errorCode, std::string errorMessage){
         cout << "Socket creation error:" << errorCode << " : " << errorMessage << endl;
@@ -11,7 +15,10 @@ int main() {
 
     // Start receiving from the host.
     tcpSocket.onMessageReceived = [](string message) {
-        cout << "Message from the Server: " << message << endl;
+        cout << message << endl;
+        cout << flush;
+
+        return 0;
     };
 
     // If you want to use raw bytes instead of std::string:
@@ -27,11 +34,11 @@ int main() {
     };
 
     // Connect to the host.
-    tcpSocket.Connect("plaza.local", 28080, [&] {
+    tcpSocket.Connect(host, port, [&] {
         cout << "Connected to the server successfully." << endl;
 
         // Send String:
-        tcpSocket.Send("Hello Server!");
+        tcpSocket.Send("get /keys/redis_farm_key");
     },
     [](int errorCode, std::string errorMessage){
         // CONNECTION FAILED
@@ -41,11 +48,8 @@ int main() {
     // You should do an input loop so the program will not end immediately:
     // Because socket listenings are non-blocking.
     string input;
+    // should replace with a timeout sleep...
     getline(cin, input);
-    while (input != "exit") {
-        tcpSocket.Send(input);
-        getline(cin, input);
-    }
 
     tcpSocket.Close();
 
