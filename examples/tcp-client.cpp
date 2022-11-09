@@ -27,7 +27,7 @@ int main()
     };
 
     // Connect to the host.
-    tcpSocket.Connect("localhost", 8888, [&] {
+    tcpSocket.Connect("plaza.local", 8888, [&] {
         cout << "Connected to the server successfully." << endl;
 
         // Send String:
