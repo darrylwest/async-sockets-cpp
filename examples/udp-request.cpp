@@ -21,22 +21,7 @@ int main() {
         cout << ipv4 << ":" << port << " => " << message << "(" << length << ")" << endl;
     };
     
-    /*
-    // If you want to use std::string:
-    udpSocket.onMessageReceived = [&](string message, string ipv4, uint16_t port) {
-        cout << ipv4 << ":" << port << " => " << message << endl;
-    };
-    */
 
-    // You should do an input loop so the program will not terminated immediately:
-    string input;
-    getline(cin, input);
-    while (input != "quit") {
-        udpSocket.Send(input);
-        getline(cin, input);
-    }
-
-    // Close the socket.
     udpSocket.Close();
 
     return 0;

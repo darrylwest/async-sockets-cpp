@@ -4,7 +4,7 @@ LIBS	:= -lpthread
 INC		:= -I../async-sockets/include
 RM		:= rm
 
-all: tcp-client tcp-server udp-client udp-server
+all: tcp-client tcp-server udp-client udp-server udp-request
 
 tcp-client:
 	$(CC) $(CFLAGS) tcp-client.cpp $(INC) $(LIBS) -o tcp-client
@@ -18,8 +18,8 @@ udp-client:
 udp-server:
 	$(CC) $(CFLAGS) udp-server.cpp $(INC) $(LIBS) -o udp-server
 
+udp-request:
+	$(CC) $(CFLAGS) udp-request.cpp $(INC) $(LIBS) -o udp-request
+
 clean:
-	$(RM) tcp-client
-	$(RM) tcp-server
-	$(RM) udp-client
-	$(RM) udp-server
+	$(RM) -f tcp-client tcp-server udp-client udp-server udp-request
