@@ -3,8 +3,7 @@
 
 using namespace std;
 
-int main()
-{
+int main() {
     // Initialize server socket..
     UDPServer udpServer;
 
@@ -35,8 +34,7 @@ int main()
     // You should do an input loop so the program will not terminated immediately:
     string input;
     getline(cin, input);
-    while (input != "exit")
-    {
+    while (input != "exit") {
         getline(cin, input);
     }
 

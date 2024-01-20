@@ -3,18 +3,18 @@
 
 using namespace std;
 
-int main()
-{
+int main() {
     // Our constants:
-    const string IP = "localhost";
-    const uint16_t PORT = 8888;
+    const string IP = "10.0.1.237";
+    const uint16_t PORT = 22200;
 
     // Initialize socket.
     UDPSocket udpSocket(true); // "true" to use Connection on UDP. Default is "false".
     udpSocket.Connect(IP, PORT);
 
     // Send String:
-    udpSocket.Send("ABCDEFGH");
+    cout << "send status" << endl;
+    udpSocket.SendTo("status", IP, PORT);
     //udpSocket.SendTo("ABCDEFGH", IP, PORT); // If you want to connectless
 
     udpSocket.onRawMessageReceived = [&](const char* message, int length, string ipv4, uint16_t port) {
@@ -29,13 +29,14 @@ int main()
     */
 
     // You should do an input loop so the program will not terminated immediately:
+    /*
     string input;
     getline(cin, input);
-    while (input != "exit")
-    {
+    while (input != "exit") {
         udpSocket.Send(input);
         getline(cin, input);
     }
+    */
 
     // Close the socket.
     udpSocket.Close();

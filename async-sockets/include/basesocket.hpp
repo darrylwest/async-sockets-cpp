@@ -17,12 +17,10 @@
 #define FDR_UNUSED(expr){ (void)(expr); } 
 #define FDR_ON_ERROR std::function<void(int, std::string)> onError = [](int errorCode, std::string errorMessage){FDR_UNUSED(errorCode); FDR_UNUSED(errorMessage)}
 
-class BaseSocket
-{
+class BaseSocket {
 // Definitions
 public:
-    enum SocketType
-    {
+    enum SocketType {
         TCP = SOCK_STREAM,
         UDP = SOCK_DGRAM
     };
@@ -32,25 +30,19 @@ public:
 
 protected:
     int sock = 0;
-    static std::string ipToString(sockaddr_in addr)
-    {
+    static std::string ipToString(sockaddr_in addr) {
         char ip[INET_ADDRSTRLEN];
         inet_ntop(AF_INET, &(addr.sin_addr), ip, INET_ADDRSTRLEN);
 
         return std::string(ip);
     }  
 
-    BaseSocket(FDR_ON_ERROR, SocketType sockType = TCP, int socketId = -1)
-    {
-        if (socketId < 0)
-        {
-            if ((this->sock = socket(AF_INET, sockType, 0)) < 0)
-            {
+    BaseSocket(FDR_ON_ERROR, SocketType sockType = TCP, int socketId = -1) {
+        if (socketId < 0) {
+            if ((this->sock = socket(AF_INET, sockType, 0)) < 0) {
                 onError(errno, "Socket creating error.");
             }
-        }
-        else
-        {
+        } else {
             this->sock = socketId;
         }
     }
